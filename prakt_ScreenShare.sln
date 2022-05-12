@@ -1,0 +1,25 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio Version 17
+VisualStudioVersion = 17.1.32421.90
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "prakt_ScreenShare", "prakt_ScreenShare\prakt_ScreenShare.csproj", "{8559AAA4-F149-4218-B4A1-A3A681C0FFE1}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Release|Any CPU = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{8559AAA4-F149-4218-B4A1-A3A681C0FFE1}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{8559AAA4-F149-4218-B4A1-A3A681C0FFE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{8559AAA4-F149-4218-B4A1-A3A681C0FFE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{8559AAA4-F149-4218-B4A1-A3A681C0FFE1}.Release|Any CPU.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+	GlobalSection(ExtensibilityGlobals) = postSolution
+		SolutionGuid = {756F7811-6982-4D42-BD3A-00CAE7B951A9}
+	EndGlobalSection
+EndGlobal

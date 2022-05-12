@@ -1,0 +1,19 @@
+﻿<Window x:Class="prakt_ScreenShare.View.IP_Form"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:prakt_ScreenShare.View"
+        mc:Ignorable="d"
+        Title="Formularz IP" Height="120" Width="265">
+    <StackPanel>
+        <Label Content="cos" HorizontalAlignment="Center" Name="title_label"/>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,10">
+            <TextBox HorizontalAlignment="Center" Width="60" MaxLength="3" PreviewTextInput="NumberValidationTextBox" Name="IP_1"/>
+            <TextBox HorizontalAlignment="Center" Width="60" MaxLength="3" PreviewTextInput="NumberValidationTextBox" Name="IP_2"/>
+            <TextBox HorizontalAlignment="Center" Width="60" MaxLength="3" PreviewTextInput="NumberValidationTextBox" Name="IP_3"/>
+            <TextBox HorizontalAlignment="Center" Width="60" MaxLength="3" PreviewTextInput="NumberValidationTextBox" Name="IP_4"/>
+        </StackPanel>
+        <Button Content="Dalej" Width="60" Click="Button_Click"/>
+    </StackPanel>
+</Window>
