@@ -53,7 +53,7 @@ namespace prakt_ScreenShare.View
                     //IPHostEntry host = Dns.GetHostEntry("localhost");
                     //IPAddress ipAddress = host.AddressList[0];
                     IPAddress ipAddress = IPAddress.Parse(IP);
-                    IPEndPoint remoteEP = new IPEndPoint(ipAddress, 11000);
+                    IPEndPoint remoteEP = new IPEndPoint(ipAddress, 8080);
 
                     // Create a TCP/IP  socket.
                     Socket sender = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
@@ -95,7 +95,7 @@ namespace prakt_ScreenShare.View
                     {
                         Console.WriteLine("Unexpected exception : {0}", e.ToString());
                     }
-                Thread.Sleep(1);
+                Thread.Sleep(17);
                 }    
             }
         public byte[] CaptureMyScreen()
@@ -109,7 +109,19 @@ namespace prakt_ScreenShare.View
                 g.CopyFromScreen(0, 0, 0, 0, bitmap.Size);
             }
             MemoryStream ms = new MemoryStream();
-            bitmap.Save(ms, ImageFormat.Bmp);
+            ImageCodecInfo myImageCodecInfo;
+            System.Drawing.Imaging.Encoder myEncoder;
+            EncoderParameter myEncoderParameter;
+            EncoderParameters myEncoderParameters;
+            myImageCodecInfo = GetEncoderInfo("image/bmp");
+            myEncoder = System.Drawing.Imaging.Encoder.Compression;
+            myEncoderParameters = new EncoderParameters(1);
+
+            myEncoderParameter = new EncoderParameter(
+                myEncoder,
+                (long)EncoderValue.CompressionLZW);
+            myEncoderParameters.Param[0] = myEncoderParameter;
+            bitmap.Save(ms, myImageCodecInfo, myEncoderParameters);
             byte[] bitmapData = ms.ToArray();
             return bitmapData;
         }
@@ -119,6 +131,18 @@ namespace prakt_ScreenShare.View
             isdoing = false;
             btn_start.IsEnabled = true;
             btn_stop.IsEnabled = false;
+        }
+        private static ImageCodecInfo GetEncoderInfo(String mimeType)
+        {
+            int j;
+            ImageCodecInfo[] encoders;
+            encoders = ImageCodecInfo.GetImageEncoders();
+            for (j = 0; j < encoders.Length; ++j)
+            {
+                if (encoders[j].MimeType == mimeType)
+                    return encoders[j];
+            }
+            return null;
         }
     }
 }

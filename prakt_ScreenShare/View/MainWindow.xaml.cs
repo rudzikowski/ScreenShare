@@ -19,7 +19,6 @@ namespace prakt_ScreenShare.View
     /// </summary>
     public partial class MainWindow : Window
     {
-        bool type;
         public MainWindow()
         {
             InitializeComponent();
@@ -27,16 +26,14 @@ namespace prakt_ScreenShare.View
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
-            type = true;
-            IP_Form ippage = new IP_Form(type);
-            ippage.Show();
+            ServerWindow server = new ServerWindow();
+            server.Show();
             this.Close();
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            type = false;
-            IP_Form ippage = new IP_Form(type);
+            IP_Form ippage = new IP_Form();
             ippage.Show();
             this.Close();
         }

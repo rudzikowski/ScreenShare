@@ -27,13 +27,10 @@ namespace prakt_ScreenShare.View
     {
         bool isdoing;
         ServerWindowViewModel viewModel = new ServerWindowViewModel();
-        string IP;
-        public ServerWindow(string _IP)
+        public ServerWindow()
         { 
             DataContext = viewModel;
             InitializeComponent();
-            label_IP.Content = "Adres IP połączonego klienta: " + _IP;
-            IP = _IP;
         }
 
         private void start_click(object sender, RoutedEventArgs e)
@@ -56,12 +53,7 @@ namespace prakt_ScreenShare.View
         {
             while (isdoing)
             {
-                //IPHostEntry host = Dns.GetHostEntry("localhost");
-                //IPAddress ipAddress = host.AddressList[0];
-               // IPAddress ipAddress = IPAddress.Parse(IP);
                 IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, 8080);
-
-
                 // Create a Socket that will use Tcp protocol
                 Socket listener = new Socket(localEndPoint.AddressFamily,SocketType.Stream, ProtocolType.Tcp);
                 // A Socket must be associated with an endpoint using the Bind method
@@ -73,19 +65,7 @@ namespace prakt_ScreenShare.View
                 Socket handler = listener.Accept();
 
                 // Incoming data from the client.
-                string data = null;
-                byte[] bytes = null;
 
-                /*while (true)
-                {
-                    bytes = new byte[1024];
-                    int bytesRec = handler.Receive(bytes);
-                    data += Encoding.ASCII.GetString(bytes, 0, bytesRec);
-                    if (data.IndexOf("<EOF>") > -1)
-                    {
-                        break;
-                    }
-                }*/
                 int dataSize = 0;
                 dataSize = 0;
                 byte[] b = new byte[1024 * 10000];  //Picture of great
@@ -106,14 +86,14 @@ namespace prakt_ScreenShare.View
 
                     //byte[] msg = Encoding.ASCII.GetBytes(data);
                     //handler.Send(msg);
-                    handler.Shutdown(SocketShutdown.Both);
-                    handler.Close();
-                    handler = null;
-                    listener.Close();
-                    listener = null;
                 }
+                Debug.WriteLine("Tutaj");
+                handler.Shutdown(SocketShutdown.Both);
+                handler.Close();
+                handler = null;
+                listener.Close();
+                listener = null;
             }
-
         }
     }
 }

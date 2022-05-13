@@ -20,19 +20,11 @@ namespace prakt_ScreenShare.View
     /// </summary>
     public partial class IP_Form : Window
     {
-        bool type;
-        public IP_Form(bool _type)//true => serwer    false => klient
+        public IP_Form()//true => serwer    false => klient
         {
             InitializeComponent();
-            type = _type;
-            if(_type == true)
-            {
-                title_label.Content = "Podaj adres IP klienta";
-            }
-            else
-            {
+
                 title_label.Content = "Podaj adres IP serwera";
-            }
         }
         private void NumberValidationTextBox(object sender, TextCompositionEventArgs e)
     {
@@ -43,20 +35,9 @@ namespace prakt_ScreenShare.View
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             string IP = $"{IP_1.Text}.{IP_2.Text}.{IP_3.Text}.{IP_4.Text}";
-            //title_label.Content = IP;
-           if(type == true)
-            {
-                ServerWindow servPage = new ServerWindow(IP);
-                servPage.Show();
-                this.Close();
-            }
-            else
-            {
                 ClientWindow clientPage = new ClientWindow(IP);
                 clientPage.Show();
                 this.Close();
-            }
-           
         }
     }
 }
