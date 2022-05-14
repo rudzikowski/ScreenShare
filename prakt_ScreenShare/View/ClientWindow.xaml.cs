@@ -112,7 +112,7 @@ namespace prakt_ScreenShare.View
             System.Drawing.Imaging.Encoder myEncoder;
             EncoderParameter myEncoderParameter;
             EncoderParameters myEncoderParameters;
-            myImageCodecInfo = GetEncoderInfo("image/tiff");
+            myImageCodecInfo = GetEncoderInfo("image/bmp");
             myEncoder = System.Drawing.Imaging.Encoder.Compression;
             myEncoderParameters = new EncoderParameters(1);
 
@@ -120,7 +120,8 @@ namespace prakt_ScreenShare.View
                 myEncoder,
                 (long)EncoderValue.CompressionLZW);
             myEncoderParameters.Param[0] = myEncoderParameter;
-            bitmap.Save(ms, myImageCodecInfo, myEncoderParameters);
+            //bitmap.Save(ms, myImageCodecInfo, myEncoderParameters);
+            bitmap.Save(ms, ImageFormat.Bmp);
             byte[] bitmapData = ms.ToArray();
             return bitmapData;
         }
