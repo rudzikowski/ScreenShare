@@ -51,18 +51,19 @@ namespace prakt_ScreenShare.View
         }
         public void StartServer()
         {
-            while (isdoing)
-            {
                 IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, 8080);
                 // Create a Socket that will use Tcp protocol
                 Socket listener = new Socket(localEndPoint.AddressFamily,SocketType.Stream, ProtocolType.Tcp);
                 // A Socket must be associated with an endpoint using the Bind method
                 listener.Bind(localEndPoint);
+                Socket handler;
+            while (isdoing)
+            {
                 // Specify how many requests a Socket can listen before it gives Server busy response.
                 // We will listen 10 requests at a time
                 listener.Listen(10);
                 Debug.WriteLine("Waiting for a connection...");
-                Socket handler = listener.Accept();
+                handler = listener.Accept();
 
                 // Incoming data from the client.
 
@@ -74,7 +75,7 @@ namespace prakt_ScreenShare.View
                 {
                     using (MemoryStream stream = new MemoryStream(b))
                     {
-                        Debug.WriteLine("Tutaj");
+                        //Debug.WriteLine("Tutaj");
                         viewModel._ImageSource = BitmapFrame.Create(stream,
                                                           BitmapCreateOptions.None,
                                                           BitmapCacheOption.OnLoad);
@@ -87,13 +88,14 @@ namespace prakt_ScreenShare.View
                     //byte[] msg = Encoding.ASCII.GetBytes(data);
                     //handler.Send(msg);
                 }
-                Debug.WriteLine("Tutaj");
-                handler.Shutdown(SocketShutdown.Both);
-                handler.Close();
-                handler = null;
-                listener.Close();
-                listener = null;
+                
             }
+                        handler = null;
+                        Debug.WriteLine("Tutaj");
+                        handler.Shutdown(SocketShutdown.Both);
+                        handler.Close();
+                        listener.Shutdown(SocketShutdown.Both);
+                        listener.Close();
         }
     }
 }

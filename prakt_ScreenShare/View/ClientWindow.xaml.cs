@@ -64,8 +64,7 @@ namespace prakt_ScreenShare.View
                         // Connect to Remote EndPoint
                         sender.Connect(remoteEP);
 
-                        Console.WriteLine("Socket connected to {0}",
-                        sender.RemoteEndPoint.ToString());
+                        Console.WriteLine("Socket connected to {0}",sender.RemoteEndPoint.ToString());
 
                         // Encode the data string into a byte array.
                         byte[] msg = CaptureMyScreen();
@@ -113,7 +112,7 @@ namespace prakt_ScreenShare.View
             System.Drawing.Imaging.Encoder myEncoder;
             EncoderParameter myEncoderParameter;
             EncoderParameters myEncoderParameters;
-            myImageCodecInfo = GetEncoderInfo("image/bmp");
+            myImageCodecInfo = GetEncoderInfo("image/tiff");
             myEncoder = System.Drawing.Imaging.Encoder.Compression;
             myEncoderParameters = new EncoderParameters(1);
 
