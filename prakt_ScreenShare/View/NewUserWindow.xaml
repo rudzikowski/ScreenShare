@@ -1,0 +1,33 @@
+﻿<Window x:Class="prakt_ScreenShare.View.NewUserWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:prakt_ScreenShare.View"
+        mc:Ignorable="d"
+        Title="NewUserWindow" Height="242" Width="295">
+    <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Border Padding="5" BorderBrush="Black" BorderThickness="1" Background="FloralWhite" CornerRadius="10">
+            <StackPanel>
+                <Border BorderBrush="Black" Background="GhostWhite" Padding="7" BorderThickness="1" CornerRadius="10" Margin="0,0,0,5" Height="65">
+                    <StackPanel>
+                        <Label Content="Nazwa Użytkownika" HorizontalAlignment="Center"/>
+                        <TextBox Text="2312" Width="240" TextAlignment="Center" Margin="0,0,0,0"/>
+                    </StackPanel>
+                </Border>
+                <Border BorderBrush="Black" Background="GhostWhite" Padding="7" BorderThickness="1" CornerRadius="10" Height="65" Margin="0,0,0,10">
+                    <StackPanel>
+                        <Label Content="IP komputera" HorizontalAlignment="Center"/>
+                        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,0">
+                            <TextBox HorizontalAlignment="Center" Width="60" MaxLength="3" PreviewTextInput="NumberValidationTextBox" Name="IP_1"/>
+                            <TextBox HorizontalAlignment="Center" Width="60" MaxLength="3" PreviewTextInput="NumberValidationTextBox" Name="IP_2"/>
+                            <TextBox HorizontalAlignment="Center" Width="60" MaxLength="3" PreviewTextInput="NumberValidationTextBox" Name="IP_3"/>
+                            <TextBox HorizontalAlignment="Center" Width="60" MaxLength="3" PreviewTextInput="NumberValidationTextBox" Name="IP_4"/>
+                        </StackPanel>
+                    </StackPanel>
+                </Border>
+                <Button Height="21" Width="99" Content="Zapisz"/>
+            </StackPanel>
+        </Border>
+    </StackPanel>
+</Window>

@@ -34,10 +34,18 @@ namespace prakt_ScreenShare.View
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            /*
             string IP = $"{IP_1.Text}.{IP_2.Text}.{IP_3.Text}.{IP_4.Text}";
                 ClientWindow clientPage = new ClientWindow(IP);
                 clientPage.Show();
                 this.Close();
+            */
+        }
+
+        private void NewUserClick(object sender, RoutedEventArgs e)
+        {
+            NewUserWindow newUser = new NewUserWindow();
+            newUser.Show();
         }
     }
 }
