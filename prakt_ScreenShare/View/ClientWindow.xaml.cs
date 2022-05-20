@@ -17,6 +17,7 @@ using System.Windows.Shapes;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Threading;
+using System.Diagnostics;
 
 namespace prakt_ScreenShare.View
 {
@@ -43,44 +44,21 @@ namespace prakt_ScreenShare.View
         }
         public void StartClient()
         {
-            while (isdoing)
-            {
-                byte[] bytes = new byte[1024];
-                    // Connect to a Remote server
-                    // Get Host IP Address that is used to establish a connection
-                    // In this case, we get one IP address of localhost that is IP : 127.0.0.1
-                    // If a host has multiple addresses, you will get a list of addresses
-                    //IPHostEntry host = Dns.GetHostEntry("localhost");
-                    //IPAddress ipAddress = host.AddressList[0];
                     IPAddress ipAddress = IPAddress.Parse(IP);
                     IPEndPoint remoteEP = new IPEndPoint(ipAddress, 8080);
 
-                    // Create a TCP/IP  socket.
+                    
+            while (isdoing)
+            {
+                    byte[] bytes = new byte[1024];
                     Socket sender = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-
-                    // Connect the socket to the remote endpoint. Catch any errors.
+                    sender.Connect(remoteEP);
+                    
                     try
                     {
-                        // Connect to Remote EndPoint
-                        sender.Connect(remoteEP);
-
-                        Console.WriteLine("Socket connected to {0}",sender.RemoteEndPoint.ToString());
-
-                        // Encode the data string into a byte array.
+                        Debug.WriteLine("Socket connected");
                         byte[] msg = CaptureMyScreen();
-
-                        // Send the data through the socket.
                         int bytesSent = sender.Send(msg);
-
-                        // Receive the response from the remote device.
-                        //int bytesRec = sender.Receive(bytes);
-                        //Console.WriteLine("Echoed test = {0}",
-                        //Encoding.ASCII.GetString(bytes, 0, bytesRec));
-
-                        // Release the socket.
-                        sender.Shutdown(SocketShutdown.Both);
-                        sender.Close();
-
                     }
                     catch (ArgumentNullException ane)
                     {
@@ -94,21 +72,25 @@ namespace prakt_ScreenShare.View
                     {
                         Console.WriteLine("Unexpected exception : {0}", e.ToString());
                     }
+                        sender.Shutdown(SocketShutdown.Both);
+                        sender.Close();
                 Thread.Sleep(17);
-                }    
+
+                }
+                        
+            
             }
         public byte[] CaptureMyScreen()
         {
             Bitmap bitmap;
-
+            MemoryStream ms = new MemoryStream();
             bitmap = new Bitmap((int)SystemParameters.PrimaryScreenWidth, (int)SystemParameters.PrimaryScreenHeight, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
            
             using (Graphics g = Graphics.FromImage(bitmap))
             {
                 g.CopyFromScreen(0, 0, 0, 0, bitmap.Size);
             }
-            MemoryStream ms = new MemoryStream();
-            ImageCodecInfo myImageCodecInfo;
+           /*ImageCodecInfo myImageCodecInfo;
             System.Drawing.Imaging.Encoder myEncoder;
             EncoderParameter myEncoderParameter;
             EncoderParameters myEncoderParameters;
@@ -116,12 +98,10 @@ namespace prakt_ScreenShare.View
             myEncoder = System.Drawing.Imaging.Encoder.Compression;
             myEncoderParameters = new EncoderParameters(1);
 
-            myEncoderParameter = new EncoderParameter(
-                myEncoder,
-                (long)EncoderValue.CompressionLZW);
-            myEncoderParameters.Param[0] = myEncoderParameter;
-            //bitmap.Save(ms, myImageCodecInfo, myEncoderParameters);
-            bitmap.Save(ms, ImageFormat.Bmp);
+            myEncoderParameter = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 10L);
+            myEncoderParameters.Param[0] = myEncoderParameter;*/
+            ms = GetCompressedBitmap(bitmap, 50L);
+            Debug.WriteLine(ms.ToArray().Length);
             byte[] bitmapData = ms.ToArray();
             return bitmapData;
         }
@@ -143,6 +123,18 @@ namespace prakt_ScreenShare.View
                     return encoders[j];
             }
             return null;
+        }
+        private MemoryStream GetCompressedBitmap(Bitmap bmp, long quality)
+        {
+            using (var mss = new MemoryStream())
+            {
+                EncoderParameter qualityParam = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, quality);
+                ImageCodecInfo imageCodec = ImageCodecInfo.GetImageEncoders().FirstOrDefault(o => o.FormatID == ImageFormat.Jpeg.Guid);
+                EncoderParameters parameters = new EncoderParameters(1);
+                parameters.Param[0] = qualityParam;
+                bmp.Save(mss, imageCodec, parameters);
+                return mss;
+            }
         }
     }
 }

@@ -5,14 +5,14 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:prakt_ScreenShare.View"
         mc:Ignorable="d"
-        Title="NewUserWindow" Height="242" Width="295">
+        Title="NewUserWindow" Height="205" Width="278">
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Border Padding="5" BorderBrush="Black" BorderThickness="1" Background="FloralWhite" CornerRadius="10">
             <StackPanel>
                 <Border BorderBrush="Black" Background="GhostWhite" Padding="7" BorderThickness="1" CornerRadius="10" Margin="0,0,0,5" Height="65">
                     <StackPanel>
                         <Label Content="Nazwa Użytkownika" HorizontalAlignment="Center"/>
-                        <TextBox Text="2312" Width="240" TextAlignment="Center" Margin="0,0,0,0"/>
+                        <TextBox Width="240" TextAlignment="Center" Margin="0,0,0,0"/>
                     </StackPanel>
                 </Border>
                 <Border BorderBrush="Black" Background="GhostWhite" Padding="7" BorderThickness="1" CornerRadius="10" Height="65" Margin="0,0,0,10">
@@ -26,7 +26,11 @@
                         </StackPanel>
                     </StackPanel>
                 </Border>
-                <Button Height="21" Width="99" Content="Zapisz"/>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                    <Button Height="21" Width="99" Content="Zapisz" Margin="0,0,10,0"/>
+                    <Button Height="21" Width="99" Content="Zapisz"/>   
+                </StackPanel>
+                
             </StackPanel>
         </Border>
     </StackPanel>

@@ -57,13 +57,14 @@ namespace prakt_ScreenShare.View
                 // A Socket must be associated with an endpoint using the Bind method
                 listener.Bind(localEndPoint);
                 Socket handler;
+                listener.Listen(10);
+                Debug.WriteLine("Waiting for a connection...");
+                
             while (isdoing)
             {
                 // Specify how many requests a Socket can listen before it gives Server busy response.
                 // We will listen 10 requests at a time
-                listener.Listen(10);
-                Debug.WriteLine("Waiting for a connection...");
-                handler = listener.Accept();
+               handler = listener.Accept();
 
                 // Incoming data from the client.
 
@@ -77,7 +78,7 @@ namespace prakt_ScreenShare.View
                     {
                         //Debug.WriteLine("Tutaj");
                         viewModel._ImageSource = BitmapFrame.Create(stream,
-                                                          BitmapCreateOptions.None,
+                                                          BitmapCreateOptions.IgnoreImageCache,
                                                           BitmapCacheOption.OnLoad);
                     }
 
@@ -92,7 +93,7 @@ namespace prakt_ScreenShare.View
             }
                         handler = null;
                         Debug.WriteLine("Tutaj");
-                        handler.Shutdown(SocketShutdown.Both);
+                        //handler.Shutdown(SocketShutdown.Both);
                         handler.Close();
                         listener.Shutdown(SocketShutdown.Both);
                         listener.Close();
