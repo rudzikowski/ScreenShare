@@ -1,0 +1,32 @@
+﻿<Window x:Class="prakt_ScreenShare.View.UsersWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:prakt_ScreenShare.View"
+        mc:Ignorable="d"
+        Title="UsersWindow" Height="450" Width="291">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition/>
+            <RowDefinition Height="50"/>
+        </Grid.RowDefinitions>
+        <ListView Grid.Row="0">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <StackPanel>
+                        <Label Content="{Binding Name}"/>
+                        <Label Content="{Binding IP}"/>
+                    </StackPanel>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+        <Border Grid.Row="1" Background="AliceBlue" Padding="3">
+            <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+                <Button Content="-" Height="45" Width="45" Margin="0,0,20,0" FontSize="70" Padding="0,-32,0,0"/>
+                <Button Content="+" Height="45" Width="45" FontSize="50" Padding="0,-17,0,0" Click="Button_Click"/>
+            </StackPanel>
+        </Border>
+        
+    </Grid>
+</Window>

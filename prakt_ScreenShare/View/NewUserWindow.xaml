@@ -12,7 +12,7 @@
                 <Border BorderBrush="Black" Background="GhostWhite" Padding="7" BorderThickness="1" CornerRadius="10" Margin="0,0,0,5" Height="65">
                     <StackPanel>
                         <Label Content="Nazwa Użytkownika" HorizontalAlignment="Center"/>
-                        <TextBox Width="240" TextAlignment="Center" Margin="0,0,0,0"/>
+                        <TextBox Width="240" TextAlignment="Center" Margin="0,0,0,0" Name="UserName_txt"/>
                     </StackPanel>
                 </Border>
                 <Border BorderBrush="Black" Background="GhostWhite" Padding="7" BorderThickness="1" CornerRadius="10" Height="65" Margin="0,0,0,10">
@@ -27,8 +27,8 @@
                     </StackPanel>
                 </Border>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
-                    <Button Height="21" Width="99" Content="Anuluj" Margin="0,0,10,0"/>
-                    <Button Height="21" Width="99" Content="Zapisz"/>   
+                    <Button Height="21" Width="99" Content="Anuluj" Margin="0,0,10,0" Click="Button_Click_1"/>
+                    <Button Height="21" Width="99" Content="Zapisz" Click="Button_Click"/>   
                 </StackPanel>
                 
             </StackPanel>
