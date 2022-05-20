@@ -5,9 +5,39 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:prakt_ScreenShare.View"
         mc:Ignorable="d"
-        Title="ClientWindow" Height="450" Width="800">
-    <StackPanel VerticalAlignment="Center" Orientation="Horizontal" HorizontalAlignment="Center">
-        <Button Content="Start" Width="100" Height="100" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Button_Click" Margin="0,0,200,0" Name="btn_start"/>
-        <Button Content="Stop" Width="100" Height="100" Click="Button_Click2" Name="btn_stop"/>
-    </StackPanel>
+        Title="ClientWindow" Height="138" Width="465" ResizeMode="CanMinimize">
+    <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="340"/>
+            <ColumnDefinition Width="110"/>
+        </Grid.ColumnDefinitions>
+        <Border Background="AliceBlue">
+            <Grid>
+                <Grid.RowDefinitions>
+                    <RowDefinition Height="50"/>
+                    <RowDefinition Height="50"/>
+                </Grid.RowDefinitions>
+                <Grid Grid.Row="0">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="165"/>
+                        <ColumnDefinition Width="170"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Wybierz Serwer:" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
+                    <ComboBox Grid.Column="1" Height="30" Width="170" Name="ComboBox_server"/>
+                </Grid>
+                <Grid Grid.Row="1">
+                    <Grid.ColumnDefinitions>
+                        <ColumnDefinition Width="165"/>
+                        <ColumnDefinition Width="170"/>
+                    </Grid.ColumnDefinitions>
+                    <Label Content="Wybierz Port:" Grid.Column="0" HorizontalAlignment="Center" VerticalAlignment="Center" FontSize="20"/>
+                    <TextBox Height="30" Width="70" Grid.Column="1" HorizontalAlignment="Center" VerticalAlignment="Center" Name="Port_textbox"/>
+                </Grid>
+            </Grid>
+        </Border>
+        <Border Padding="1" Grid.Column="1">
+            <Button Content="Start" Height="90" Width="90" VerticalAlignment="Center" HorizontalAlignment="Center" Click="Button_Click" Name="btn_start" FontSize="25"/>
+        </Border>
+        
+    </Grid>
 </Window>

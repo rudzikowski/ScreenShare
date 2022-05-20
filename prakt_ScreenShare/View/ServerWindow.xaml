@@ -6,18 +6,30 @@
         xmlns:local="clr-namespace:prakt_ScreenShare.View"
         mc:Ignorable="d"
         Title="ServerWindow" Height="450" Width="800">
-    <StackPanel Orientation="Vertical">
-        <Grid>
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition/>
-                <ColumnDefinition/>
-            </Grid.ColumnDefinitions>
-            <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
-                <Button Name="start_btn" Content="Start" Width="71" Click="start_click"/>
-                <Button Name="stop_btn" Content="Stop" Width="71" Click="stop_click"/>
-            </StackPanel>
-            <Label Grid.Column="0" HorizontalAlignment="Left" x:Name="label_IP"/>
-        </Grid>
-        <Image x:Name="imageView" Margin="10,20,10,0" Source="{Binding _ImageSource}"/>
-    </StackPanel>
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="35"/>
+            <RowDefinition/>
+        </Grid.RowDefinitions>
+        <Border Background="AliceBlue">
+            <Grid Grid.Row="0">
+                <Grid.ColumnDefinitions>
+                    <ColumnDefinition Width="450"/>
+                    <ColumnDefinition/>
+                </Grid.ColumnDefinitions>
+                <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
+                    <Button Name="start_btn" Content="Start" Width="71" Click="start_click"/>
+                    <Button Name="stop_btn" Content="Stop" Width="71" Click="stop_click"/>
+                </StackPanel>
+                <StackPanel Orientation="Horizontal" Grid.Column="0">
+                    <Label x:Name="label_IP" Content="Wybierz Clienta:" VerticalAlignment="Center" FontSize="15"/>
+                    <ComboBox Height="30" Width="170" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                    <Label Content="Wybierz Port:" VerticalAlignment="Center" FontSize="15"/>
+                    <TextBox Width="60" Height="30"/>
+                </StackPanel>
+
+            </Grid>
+        </Border>
+        <Image x:Name="imageView" Margin="0,0,0,0" Source="{Binding _ImageSource}" Grid.Row="1"/>
+    </Grid>
 </Window>

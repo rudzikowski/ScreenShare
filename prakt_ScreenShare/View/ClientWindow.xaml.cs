@@ -26,30 +26,57 @@ namespace prakt_ScreenShare.View
     /// </summary>
     public partial class ClientWindow : Window
     {
-        bool isdoing = true;
+        bool isdoing = false;
         string IP;
-        public ClientWindow(string _IP)
+        int Port;
+        public ClientWindow()
         {
             InitializeComponent();
-            IP = _IP;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
-        { 
-            btn_start.IsEnabled = false;
-            btn_stop.IsEnabled = true;
-            isdoing = true;
+        {
             var th = new Thread(StartClient);
-            th.Start();
+            if (isdoing == false)
+            {
+            
+            if(Port_textbox.Text == "")
+                {
+                    MessageBox.Show("Nie podano portu");
+                }
+                else
+                {
+                    btn_start.Content = "Stop";
+                    btn_start.Background = new SolidColorBrush(Colors.Crimson);
+                    Port = int.Parse(Port_textbox.Text);
+                    ComboBox_server.IsEnabled = false;
+                    Port_textbox.IsEnabled = false;
+                    isdoing = true;
+                    th.Start();
+                }
+            
+            }
+            else
+            {
+                btn_start.Content = "Start";
+                btn_start.Background = new SolidColorBrush(Colors.Green);
+                ComboBox_server.IsEnabled = true;
+                Port_textbox.IsEnabled = true;
+                isdoing =false;
+                //th.Abort();
+            }
+            
         }
         public void StartClient()
         {
-                    IPAddress ipAddress = IPAddress.Parse(IP);
-                    IPEndPoint remoteEP = new IPEndPoint(ipAddress, 8080);
+                    IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
+                    IPEndPoint remoteEP = new IPEndPoint(ipAddress, Port);
 
-                    
+             try
+                {       
             while (isdoing)
             {
+                
                     byte[] bytes = new byte[1024];
                     Socket sender = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
                     sender.Connect(remoteEP);
@@ -74,10 +101,16 @@ namespace prakt_ScreenShare.View
                     }
                         sender.Shutdown(SocketShutdown.Both);
                         sender.Close();
-                Thread.Sleep(17);
+                        Thread.Sleep(17);
+                }
+                
+                    
 
                 }
-                        
+                  catch
+                {
+                    MessageBox.Show("Nie udało się nazwiązać połączenia");
+                }      
             
             }
         public byte[] CaptureMyScreen()
@@ -104,13 +137,6 @@ namespace prakt_ScreenShare.View
             Debug.WriteLine(ms.ToArray().Length);
             byte[] bitmapData = ms.ToArray();
             return bitmapData;
-        }
-
-        private void Button_Click2(object sender, RoutedEventArgs e)
-        {
-            isdoing = false;
-            btn_start.IsEnabled = true;
-            btn_stop.IsEnabled = false;
         }
         private static ImageCodecInfo GetEncoderInfo(String mimeType)
         {
