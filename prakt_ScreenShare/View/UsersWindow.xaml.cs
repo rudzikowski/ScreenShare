@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using prakt_ScreenShare.ViewModel;
 
 namespace prakt_ScreenShare.View
 {
@@ -19,15 +20,28 @@ namespace prakt_ScreenShare.View
     /// </summary>
     public partial class UsersWindow : Window
     {
+        UsersWindowViewModel viewmodel;
         public UsersWindow()
         {
             InitializeComponent();
+            viewmodel = new UsersWindowViewModel();
+            DataContext = viewmodel;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             NewUserWindow newuser = new NewUserWindow();
             newuser.Show();
+        }
+
+        private void Refresh(object sender, RoutedEventArgs e)
+        {
+            viewmodel.Refresh();
+        }
+
+        private void DeleteUser(object sender, RoutedEventArgs e)
+        {
+            viewmodel.DeleteUser();
         }
     }
 }

@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:prakt_ScreenShare.View"
         mc:Ignorable="d"
-        Title="NewUserWindow" Height="205" Width="278">
+        Title="Nowy Użytkownik" Height="230" Width="295" ResizeMode="NoResize">
     <StackPanel Orientation="Vertical" HorizontalAlignment="Center" VerticalAlignment="Center">
         <Border Padding="5" BorderBrush="Black" BorderThickness="1" Background="FloralWhite" CornerRadius="10">
             <StackPanel>

@@ -33,13 +33,15 @@ namespace prakt_ScreenShare.View
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
-            IP_Form ippage = new IP_Form();
-            ippage.Show();
+            ClientWindow client = new ClientWindow();
+            client.Show();
             this.Close();
         }
 
         private void Button_Click_2(object sender, RoutedEventArgs e)
         {
+            userwindow.Close();
+            userwindow = new UsersWindow();
             userwindow.Show();
         }
     }

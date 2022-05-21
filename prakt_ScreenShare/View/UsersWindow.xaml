@@ -5,25 +5,26 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:prakt_ScreenShare.View"
         mc:Ignorable="d"
-        Title="UsersWindow" Height="450" Width="291">
+        Title="UsersWindow" Height="400" Width="270" ResizeMode="CanMinimize">
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition Height="50"/>
         </Grid.RowDefinitions>
-        <ListView Grid.Row="0">
+        <ListView Grid.Row="0" ItemsSource="{Binding Users, Mode=OneWay}" SelectedItem="{Binding User, Mode=TwoWay}" HorizontalAlignment="Center" BorderThickness="30" Width="270" Height="310">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <StackPanel>
-                        <Label Content="{Binding Name}"/>
-                        <Label Content="{Binding IP}"/>
-                    </StackPanel>
+                    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center">
+                            <Label Content="{Binding Name}"/>
+                            <Label Content="{Binding IP}"/>
+                        </StackPanel>
                 </DataTemplate>
             </ListView.ItemTemplate>
         </ListView>
         <Border Grid.Row="1" Background="AliceBlue" Padding="3">
             <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
-                <Button Content="-" Height="45" Width="45" Margin="0,0,20,0" FontSize="70" Padding="0,-32,0,0"/>
+                <Button Content="🔄" Height="45" Width="45" Margin="0,0,20,0" FontSize="53" Padding="-15,-15,0,0" Click="Refresh"/>
+                <Button Content="-" Height="45" Width="45" Margin="0,0,20,0" FontSize="70" Padding="0,-32,0,0" Click="DeleteUser"/>
                 <Button Content="+" Height="45" Width="45" FontSize="50" Padding="0,-17,0,0" Click="Button_Click"/>
             </StackPanel>
         </Border>

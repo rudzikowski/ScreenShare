@@ -18,6 +18,7 @@ using System.Drawing.Imaging;
 using System.IO;
 using System.Threading;
 using System.Diagnostics;
+using prakt_ScreenShare.ViewModel;
 
 namespace prakt_ScreenShare.View
 {
@@ -27,11 +28,13 @@ namespace prakt_ScreenShare.View
     public partial class ClientWindow : Window
     {
         bool isdoing = false;
-        string IP;
         int Port;
+        ClientWindowViewModel viewmodel;
         public ClientWindow()
         {
             InitializeComponent();
+            viewmodel = new ClientWindowViewModel();
+            DataContext = viewmodel;
         }
 
         private void Button_Click(object sender, RoutedEventArgs e)
@@ -69,9 +72,8 @@ namespace prakt_ScreenShare.View
         }
         public void StartClient()
         {
-                    IPAddress ipAddress = IPAddress.Parse("127.0.0.1");
+                    IPAddress ipAddress = IPAddress.Parse(viewmodel.User.IP);
                     IPEndPoint remoteEP = new IPEndPoint(ipAddress, Port);
-
              try
                 {       
             while (isdoing)
@@ -123,17 +125,7 @@ namespace prakt_ScreenShare.View
             {
                 g.CopyFromScreen(0, 0, 0, 0, bitmap.Size);
             }
-           /*ImageCodecInfo myImageCodecInfo;
-            System.Drawing.Imaging.Encoder myEncoder;
-            EncoderParameter myEncoderParameter;
-            EncoderParameters myEncoderParameters;
-            myImageCodecInfo = GetEncoderInfo("image/bmp");
-            myEncoder = System.Drawing.Imaging.Encoder.Compression;
-            myEncoderParameters = new EncoderParameters(1);
-
-            myEncoderParameter = new EncoderParameter(System.Drawing.Imaging.Encoder.Quality, 10L);
-            myEncoderParameters.Param[0] = myEncoderParameter;*/
-            ms = GetCompressedBitmap(bitmap, 50L);
+            ms = GetCompressedBitmap(bitmap, 30L);
             Debug.WriteLine(ms.ToArray().Length);
             byte[] bitmapData = ms.ToArray();
             return bitmapData;

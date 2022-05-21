@@ -25,6 +25,7 @@ namespace prakt_ScreenShare.View
     /// </summary>
     public partial class ServerWindow : Window
     {
+        
         bool isdoing;
         ServerWindowViewModel viewModel = new ServerWindowViewModel();
         public ServerWindow()
@@ -35,12 +36,22 @@ namespace prakt_ScreenShare.View
 
         private void start_click(object sender, RoutedEventArgs e)
         {
+            if (Port.Text == "")
+            {
+                MessageBox.Show("Nie podano portu");
+            }else if(viewModel.User.Name == null)
+            {
+                MessageBox.Show("Nie wybrano klienta");
+            }
+            else
+            {
             start_btn.IsEnabled = false;
             stop_btn.IsEnabled = true;
             isdoing = true;
             var th = new Thread(StartServer);
             Debug.WriteLine("klik");
             th.Start();
+            }
         }
 
         private void stop_click(object sender, RoutedEventArgs e)
@@ -51,7 +62,16 @@ namespace prakt_ScreenShare.View
         }
         public void StartServer()
         {
-                IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, 8080);
+            IPAddress IP;
+            if (viewModel.User.Name == "Any")
+            {
+                IP = IPAddress.Any;
+            }
+            else
+            {
+                IP = IPAddress.Parse(viewModel.User.IP);
+            }
+                IPEndPoint localEndPoint = new IPEndPoint(IP, 8080);
                 // Create a Socket that will use Tcp protocol
                 Socket listener = new Socket(localEndPoint.AddressFamily,SocketType.Stream, ProtocolType.Tcp);
                 // A Socket must be associated with an endpoint using the Bind method
@@ -94,7 +114,6 @@ namespace prakt_ScreenShare.View
                         handler = null;
                         Debug.WriteLine("Tutaj");
                         //handler.Shutdown(SocketShutdown.Both);
-                        handler.Close();
                         listener.Shutdown(SocketShutdown.Both);
                         listener.Close();
         }
