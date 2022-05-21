@@ -36,9 +36,7 @@ namespace prakt_ScreenShare.Services
         public async Task<List<UserEntries>> GetUsers()
         {
             await Init();
-            var query = db.Table<UserEntries>();
-            return query.ToList();
+            return db.Table<UserEntries>().ToList();
         }
-
     }
 }
