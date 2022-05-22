@@ -25,40 +25,50 @@ namespace prakt_ScreenShare.View
     /// </summary>
     public partial class ServerWindow : Window
     {
-        
-        bool isdoing;
+
+        bool isdoing = false;
         ServerWindowViewModel viewModel = new ServerWindowViewModel();
+        int port;
         public ServerWindow()
-        { 
+        {
             DataContext = viewModel;
             InitializeComponent();
         }
 
         private void start_click(object sender, RoutedEventArgs e)
         {
-            if (Port.Text == "")
+            if (isdoing == false)
             {
-                MessageBox.Show("Nie podano portu");
-            }else if(viewModel.User.Name == null)
-            {
-                MessageBox.Show("Nie wybrano klienta");
+                
+                if (Port.Text == "")
+                {
+                    MessageBox.Show("Nie podano portu");
+                }
+                else if (viewModel.User.Name == null)
+                {
+                    MessageBox.Show("Nie wybrano klienta");
+                }
+                else
+                {
+                    start_btn.Content = "Stop";
+                    isdoing = true;
+                    port = int.Parse(Port.Text);
+                    Port.IsEnabled = false;
+                    ComboBox_server.IsEnabled = false;
+                    isdoing = true;
+                    var th = new Thread(StartServer);
+                    Debug.WriteLine("klik");
+                    th.Start();
+                }
             }
             else
             {
-            start_btn.IsEnabled = false;
-            stop_btn.IsEnabled = true;
-            isdoing = true;
-            var th = new Thread(StartServer);
-            Debug.WriteLine("klik");
-            th.Start();
+                start_btn.Content = "Start";
+                isdoing = false;
+                ComboBox_server.IsEnabled = true;
+                Port.IsEnabled = true;
             }
-        }
 
-        private void stop_click(object sender, RoutedEventArgs e)
-        {
-            start_btn.IsEnabled = true;
-            stop_btn.IsEnabled = false;
-            isdoing = false;
         }
         public void StartServer()
         {
@@ -71,20 +81,19 @@ namespace prakt_ScreenShare.View
             {
                 IP = IPAddress.Parse(viewModel.User.IP);
             }
-                IPEndPoint localEndPoint = new IPEndPoint(IP, 8080);
-                // Create a Socket that will use Tcp protocol
-                Socket listener = new Socket(localEndPoint.AddressFamily,SocketType.Stream, ProtocolType.Tcp);
-                // A Socket must be associated with an endpoint using the Bind method
-                listener.Bind(localEndPoint);
-                Socket handler;
-                listener.Listen(10);
-                Debug.WriteLine("Waiting for a connection...");
-                
+            IPEndPoint localEndPoint = new IPEndPoint(IP, port);
+            // Create a Socket that will use Tcp protocol
+            Socket listener = new Socket(localEndPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
+            // A Socket must be associated with an endpoint using the Bind method
+            listener.Bind(localEndPoint);
+            Socket handler;
+            listener.Listen(10);
+            Debug.WriteLine("Waiting for a connection...");
+            handler = listener.Accept();
             while (isdoing)
             {
                 // Specify how many requests a Socket can listen before it gives Server busy response.
-                // We will listen 10 requests at a time
-               handler = listener.Accept();
+                // We will listen 10 requests at a
 
                 // Incoming data from the client.
 
@@ -98,7 +107,7 @@ namespace prakt_ScreenShare.View
                     {
                         //Debug.WriteLine("Tutaj");
                         viewModel._ImageSource = BitmapFrame.Create(stream,
-                                                          BitmapCreateOptions.IgnoreImageCache,
+                                                          BitmapCreateOptions.None,
                                                           BitmapCacheOption.OnLoad);
                     }
 
@@ -109,13 +118,13 @@ namespace prakt_ScreenShare.View
                     //byte[] msg = Encoding.ASCII.GetBytes(data);
                     //handler.Send(msg);
                 }
-                
+
             }
-                        handler = null;
-                        Debug.WriteLine("Tutaj");
-                        //handler.Shutdown(SocketShutdown.Both);
-                        listener.Shutdown(SocketShutdown.Both);
-                        listener.Close();
+            handler = null;
+            Debug.WriteLine("Tutaj");
+            //handler.Shutdown(SocketShutdown.Both);
+            listener.Shutdown(SocketShutdown.Both);
+            listener.Close();
         }
     }
 }

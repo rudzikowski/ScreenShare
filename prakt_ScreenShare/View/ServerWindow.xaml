@@ -6,12 +6,7 @@
         xmlns:local="clr-namespace:prakt_ScreenShare.View"
         mc:Ignorable="d"
         Title="ServerWindow" Height="450" Width="800">
-    <Window.Resources>
-        <Style TargetType="Image" x:Key="FullScreen">
-            <Setter Property="Height" Value=""/>
-        </Style>
-    </Window.Resources>
-    
+
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="35"/>
@@ -25,7 +20,6 @@
                 </Grid.ColumnDefinitions>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Right" Grid.Column="1">
                     <Button Name="start_btn" Content="Start" Width="71" Click="start_click"/>
-                    <Button Name="stop_btn" Content="Stop" Width="71" Click="stop_click"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Column="0">
                     <Label x:Name="label_IP" Content="Wybierz Clienta:" VerticalAlignment="Center" FontSize="15"/>
