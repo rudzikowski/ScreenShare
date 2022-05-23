@@ -22,6 +22,7 @@
                     <Button Name="start_btn" Content="Start" Width="71" Click="start_click"/>
                 </StackPanel>
                 <StackPanel Orientation="Horizontal" Grid.Column="0">
+                  <!--
                     <Label x:Name="label_IP" Content="Wybierz Clienta:" VerticalAlignment="Center" FontSize="15"/>
                     <ComboBox Grid.Column="1" Height="30" Width="170" Name="ComboBox_server" ItemsSource="{Binding Users}" SelectedItem="{Binding User}">
                         <ComboBox.ItemTemplate>
@@ -33,6 +34,7 @@
                             </DataTemplate>
                         </ComboBox.ItemTemplate>
                     </ComboBox>
+                -->
                     <Label Content="Wybierz Port:" VerticalAlignment="Center" FontSize="15"/>
                     <TextBox Width="60" Height="30" Name="Port"/>
                 </StackPanel>

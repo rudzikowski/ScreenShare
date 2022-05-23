@@ -29,6 +29,7 @@ namespace prakt_ScreenShare.View
         bool isdoing = false;
         ServerWindowViewModel viewModel = new ServerWindowViewModel();
         int port;
+        Socket handler;
         public ServerWindow()
         {
             DataContext = viewModel;
@@ -37,6 +38,7 @@ namespace prakt_ScreenShare.View
 
         private void start_click(object sender, RoutedEventArgs e)
         {
+            var th = new Thread(StartServer);
             if (isdoing == false)
             {
                 
@@ -44,19 +46,14 @@ namespace prakt_ScreenShare.View
                 {
                     MessageBox.Show("Nie podano portu");
                 }
-                else if (viewModel.User.Name == null)
-                {
-                    MessageBox.Show("Nie wybrano klienta");
-                }
                 else
                 {
                     start_btn.Content = "Stop";
                     isdoing = true;
                     port = int.Parse(Port.Text);
                     Port.IsEnabled = false;
-                    ComboBox_server.IsEnabled = false;
+                    //ComboBox_server.IsEnabled = false;
                     isdoing = true;
-                    var th = new Thread(StartServer);
                     Debug.WriteLine("klik");
                     th.Start();
                 }
@@ -65,38 +62,21 @@ namespace prakt_ScreenShare.View
             {
                 start_btn.Content = "Start";
                 isdoing = false;
-                ComboBox_server.IsEnabled = true;
+                //ComboBox_server.IsEnabled = true;
                 Port.IsEnabled = true;
             }
 
         }
         public void StartServer()
         {
-            IPAddress IP;
-            if (viewModel.User.Name == "Any")
-            {
-                IP = IPAddress.Any;
-            }
-            else
-            {
-                IP = IPAddress.Parse(viewModel.User.IP);
-            }
-            IPEndPoint localEndPoint = new IPEndPoint(IP, port);
-            // Create a Socket that will use Tcp protocol
-            Socket listener = new Socket(localEndPoint.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
-            // A Socket must be associated with an endpoint using the Bind method
+            IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, port);
+            Socket listener = new Socket(localEndPoint.AddressFamily ,SocketType.Stream, ProtocolType.Tcp);
             listener.Bind(localEndPoint);
-            Socket handler;
-            listener.Listen(10);
-            Debug.WriteLine("Waiting for a connection...");
-            handler = listener.Accept();
             while (isdoing)
             {
-                // Specify how many requests a Socket can listen before it gives Server busy response.
-                // We will listen 10 requests at a
-
-                // Incoming data from the client.
-
+                listener.Listen(10);
+                Debug.WriteLine("Waiting for a connection...");
+                handler = listener.Accept();
                 int dataSize = 0;
                 dataSize = 0;
                 byte[] b = new byte[1024 * 10000];  //Picture of great
@@ -105,26 +85,14 @@ namespace prakt_ScreenShare.View
                 {
                     using (MemoryStream stream = new MemoryStream(b))
                     {
-                        //Debug.WriteLine("Tutaj");
-                        viewModel._ImageSource = BitmapFrame.Create(stream,
-                                                          BitmapCreateOptions.None,
-                                                          BitmapCacheOption.OnLoad);
+                        viewModel._ImageSource = BitmapFrame.Create(stream,BitmapCreateOptions.None,BitmapCacheOption.OnLoad);
                     }
-
-
-
-                    //Debug.WriteLine("Text received : {0}", data);
-
-                    //byte[] msg = Encoding.ASCII.GetBytes(data);
-                    //handler.Send(msg);
                 }
-
             }
-            handler = null;
-            Debug.WriteLine("Tutaj");
-            //handler.Shutdown(SocketShutdown.Both);
-            listener.Shutdown(SocketShutdown.Both);
-            listener.Close();
+            Debug.WriteLine("Zatrzymano");
+            handler.Shutdown(SocketShutdown.Both);
+            handler.Close();
+            
         }
     }
 }

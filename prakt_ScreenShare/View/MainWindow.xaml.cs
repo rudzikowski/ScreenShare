@@ -26,6 +26,7 @@ namespace prakt_ScreenShare.View
         }
         private void Button_Click(object sender, RoutedEventArgs e)
         {
+            userwindow.Close();
             ServerWindow server = new ServerWindow();
             server.Show();
             this.Close();
@@ -33,6 +34,7 @@ namespace prakt_ScreenShare.View
 
         private void Button_Click_1(object sender, RoutedEventArgs e)
         {
+            userwindow.Close();
             ClientWindow client = new ClientWindow();
             client.Show();
             this.Close();
