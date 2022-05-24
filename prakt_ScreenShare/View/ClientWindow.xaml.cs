@@ -125,7 +125,7 @@ namespace prakt_ScreenShare.View
             {
                 g.CopyFromScreen(0, 0, 0, 0, bitmap.Size);
             }
-            ms = GetCompressedBitmap(bitmap, 20L);
+            ms = GetCompressedBitmap(bitmap, 50L);
             Debug.WriteLine(ms.ToArray().Length);
             byte[] bitmapData = ms.ToArray();
             return bitmapData;

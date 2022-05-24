@@ -36,7 +36,7 @@
                     </ComboBox>
                 -->
                     <Label Content="Wybierz Port:" VerticalAlignment="Center" FontSize="15"/>
-                    <TextBox Width="60" Height="30" Name="Port"/>
+                    <TextBox Width="60" Height="30" Name="Port" TextAlignment="Center" VerticalContentAlignment="Center" FontSize="17"/>
                 </StackPanel>
 
             </Grid>

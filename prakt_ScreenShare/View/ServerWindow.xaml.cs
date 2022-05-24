@@ -30,6 +30,7 @@ namespace prakt_ScreenShare.View
         ServerWindowViewModel viewModel = new ServerWindowViewModel();
         int port;
         Socket handler;
+        ServerWindow serverWindow;
         public ServerWindow()
         {
             DataContext = viewModel;
@@ -38,6 +39,7 @@ namespace prakt_ScreenShare.View
 
         private void start_click(object sender, RoutedEventArgs e)
         {
+            serverWindow = new ServerWindow();
             var th = new Thread(StartServer);
             if (isdoing == false)
             {
@@ -61,13 +63,14 @@ namespace prakt_ScreenShare.View
             else
             {
                 start_btn.Content = "Start";
+                serverWindow.Show();
+                this.Close();
                 isdoing = false;
-                //ComboBox_server.IsEnabled = true;
                 Port.IsEnabled = true;
             }
 
         }
-        public void StartServer()
+        void StartServer()
         {
             IPEndPoint localEndPoint = new IPEndPoint(IPAddress.Any, port);
             Socket listener = new Socket(localEndPoint.AddressFamily ,SocketType.Stream, ProtocolType.Tcp);
@@ -77,6 +80,7 @@ namespace prakt_ScreenShare.View
                 listener.Listen(10);
                 Debug.WriteLine("Waiting for a connection...");
                 handler = listener.Accept();
+                Debug.WriteLine("Connection...Accepted");
                 int dataSize = 0;
                 dataSize = 0;
                 byte[] b = new byte[1024 * 10000];  //Picture of great
@@ -89,10 +93,9 @@ namespace prakt_ScreenShare.View
                     }
                 }
             }
-            Debug.WriteLine("Zatrzymano");
             handler.Shutdown(SocketShutdown.Both);
             handler.Close();
-            
+            Debug.WriteLine("Zatrzymano");
         }
     }
 }
