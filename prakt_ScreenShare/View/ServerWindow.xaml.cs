@@ -30,7 +30,6 @@ namespace prakt_ScreenShare.View
         ServerWindowViewModel viewModel = new ServerWindowViewModel();
         int port;
         Socket handler;
-        ServerWindow serverWindow;
         public ServerWindow()
         {
             DataContext = viewModel;
@@ -39,7 +38,6 @@ namespace prakt_ScreenShare.View
 
         private void start_click(object sender, RoutedEventArgs e)
         {
-            serverWindow = new ServerWindow();
             var th = new Thread(StartServer);
             if (isdoing == false)
             {
@@ -63,8 +61,6 @@ namespace prakt_ScreenShare.View
             else
             {
                 start_btn.Content = "Start";
-                serverWindow.Show();
-                this.Close();
                 isdoing = false;
                 Port.IsEnabled = true;
             }
