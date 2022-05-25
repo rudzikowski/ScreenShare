@@ -3,7 +3,9 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 17
 VisualStudioVersion = 17.1.32421.90
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "prakt_ScreenShare", "prakt_ScreenShare\prakt_ScreenShare.csproj", "{8559AAA4-F149-4218-B4A1-A3A681C0FFE1}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "prakt_ScreenShare", "prakt_ScreenShare\prakt_ScreenShare.csproj", "{8559AAA4-F149-4218-B4A1-A3A681C0FFE1}"
+EndProject
+Project("{54435603-DBB4-11D2-8724-00A0C9A8B90C}") = "ScreenShareSetup", "ScreenShareSetup\ScreenShareSetup.vdproj", "{BD4D5910-109A-4651-A1D3-F102498D1ABE}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -15,6 +17,8 @@ Global
 		{8559AAA4-F149-4218-B4A1-A3A681C0FFE1}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{8559AAA4-F149-4218-B4A1-A3A681C0FFE1}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{8559AAA4-F149-4218-B4A1-A3A681C0FFE1}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BD4D5910-109A-4651-A1D3-F102498D1ABE}.Debug|Any CPU.ActiveCfg = Debug
+		{BD4D5910-109A-4651-A1D3-F102498D1ABE}.Release|Any CPU.ActiveCfg = Release
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
