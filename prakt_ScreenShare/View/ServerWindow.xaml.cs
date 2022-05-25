@@ -30,6 +30,7 @@ namespace prakt_ScreenShare.View
         ServerWindowViewModel viewModel = new ServerWindowViewModel();
         int port;
         Socket handler;
+        bool isfullScreen = false;
         public ServerWindow()
         {
             DataContext = viewModel;
@@ -95,6 +96,34 @@ namespace prakt_ScreenShare.View
             handler.Shutdown(SocketShutdown.Both);
             handler.Close();
             Debug.WriteLine("Zatrzymano");
+        }
+
+        private void ImageButton_Click(object sender, RoutedEventArgs e)
+        {
+            
+            if (isfullScreen == false)
+            {
+                GridLengthConverter myGridLengthConverter = new GridLengthConverter();
+                GridLength gl1 = (GridLength)myGridLengthConverter.ConvertFromString("0");
+                GridRowControl.Height = gl1;
+                this.WindowState = WindowState.Maximized;
+                this.WindowStyle = WindowStyle.None;
+                this.ResizeMode = ResizeMode.NoResize;
+                this.WindowStartupLocation = WindowStartupLocation.CenterScreen;
+                isfullScreen = true;
+            }
+            else
+            {
+                GridLengthConverter myGridLengthConverter = new GridLengthConverter();
+                GridLength gl1 = (GridLength)myGridLengthConverter.ConvertFromString("30");
+                GridRowControl.Height = gl1;
+                GridLength.Equals(GridRowControl, 30);
+                this.WindowState = WindowState.Normal;
+                this.ResizeMode = ResizeMode.CanResizeWithGrip;
+                this.WindowStyle = WindowStyle.ToolWindow;
+                this.WindowState = WindowState.Normal;
+                isfullScreen=false;
+            }
         }
     }
 }

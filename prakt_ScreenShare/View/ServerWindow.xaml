@@ -6,10 +6,20 @@
         xmlns:local="clr-namespace:prakt_ScreenShare.View"
         mc:Ignorable="d"
         Title="ServerWindow" Height="450" Width="800">
-
+    <Window.Resources>
+        <Style TargetType="{x:Type Button}" x:Key="ImageButtonStyle">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Button}">
+                        <ContentPresenter/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Window.Resources>
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="35"/>
+            <RowDefinition Height="35" Name="GridRowControl"/>
             <RowDefinition/>
         </Grid.RowDefinitions>
         <Border Background="AliceBlue">
@@ -41,6 +51,8 @@
 
             </Grid>
         </Border>
-        <Image x:Name="imageView" Margin="0,0,0,0" Source="{Binding _ImageSource}" Grid.Row="1"/>
+        <Button Style="{StaticResource ImageButtonStyle}" Click="ImageButton_Click" Grid.Row="1">
+            <Image x:Name="imageView" Margin="0,0,0,0" Source="{Binding _ImageSource}" Grid.Row="1"/>
+        </Button>
     </Grid>
 </Window>
