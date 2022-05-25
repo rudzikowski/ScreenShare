@@ -36,9 +36,17 @@ namespace prakt_ScreenShare.View
 
         private void Button_Click(object sender, RoutedEventArgs e) //Kliknięto zapisz
         {
+            if (int.Parse(IP_1.Text) > 255 || int.Parse(IP_2.Text) > 255 || int.Parse(IP_3.Text) > 255 || int.Parse(IP_4.Text) > 255)
+            {
+                MessageBox.Show("Podane IP jest nieprawidłowe");
+            }
+            else
+            {
             UserEntries user = new UserEntries() {Name = UserName_txt.Text, IP = $"{IP_1.Text}.{IP_2.Text}.{IP_3.Text}.{IP_4.Text}"}; //Obiekt User
             db.AddUser(user);
             this.Close();
+            }
+            
         }
 
         private void Button_Click_1(object sender, RoutedEventArgs e)//Kliknięto Anuluj
