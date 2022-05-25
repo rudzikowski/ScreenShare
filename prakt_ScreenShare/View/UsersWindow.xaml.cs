@@ -31,17 +31,16 @@ namespace prakt_ScreenShare.View
         private void Button_Click(object sender, RoutedEventArgs e)
         {
             NewUserWindow newuser = new NewUserWindow();
-            newuser.Show();
+            newuser.ShowDialog();
         }
-
-        private void Refresh(object sender, RoutedEventArgs e)
-        {
-            viewmodel.Refresh();
-        }
-
         private void DeleteUser(object sender, RoutedEventArgs e)
         {
             viewmodel.DeleteUser();
+        }
+        protected override void OnActivated(EventArgs e)
+        {
+            base.OnActivated(e);
+            viewmodel.Refresh();
         }
     }
 }
