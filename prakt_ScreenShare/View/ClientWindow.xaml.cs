@@ -42,8 +42,8 @@ namespace prakt_ScreenShare.View
             var th = new Thread(StartClient);
             if (isdoing == false)
             {
-            
-            if(Port_textbox.Text == "")
+
+                if (Port_textbox.Text == "")
                 {
                     MessageBox.Show("Nie podano portu");
                 }
@@ -57,7 +57,7 @@ namespace prakt_ScreenShare.View
                     isdoing = true;
                     th.Start();
                 }
-            
+
             }
             else
             {
@@ -65,24 +65,24 @@ namespace prakt_ScreenShare.View
                 btn_start.Background = new SolidColorBrush(Colors.Green);
                 ComboBox_server.IsEnabled = true;
                 Port_textbox.IsEnabled = true;
-                isdoing =false;
+                isdoing = false;
                 //th.Abort();
             }
-            
+
         }
         public void StartClient()
         {
-                    IPAddress ipAddress = IPAddress.Parse(viewmodel.User.IP);
-                    IPEndPoint remoteEP = new IPEndPoint(ipAddress, Port);
-             try
-                {       
-            while (isdoing)
+            IPAddress ipAddress = IPAddress.Parse(viewmodel.User.IP);
+            IPEndPoint remoteEP = new IPEndPoint(ipAddress, Port);
+            try
             {
-                
+                while (isdoing)
+                {
+
                     byte[] bytes = new byte[1024];
                     Socket sender = new Socket(ipAddress.AddressFamily, SocketType.Stream, ProtocolType.Tcp);
                     sender.Connect(remoteEP);
-                    
+
                     try
                     {
                         Debug.WriteLine("Socket connected");
@@ -101,26 +101,23 @@ namespace prakt_ScreenShare.View
                     {
                         Console.WriteLine("Unexpected exception : {0}", e.ToString());
                     }
-                        sender.Shutdown(SocketShutdown.Both);
-                        sender.Close();
-                        Thread.Sleep(17);
+                    sender.Shutdown(SocketShutdown.Both);
+                    sender.Close();
+                    Thread.Sleep(17);
                 }
-                
-                    
-
-                }
-                  catch
-                {
-                    MessageBox.Show("Nie udało się nazwiązać połączenia");
-                }      
-            
             }
+            catch
+            {
+                MessageBox.Show("Nie udało się nazwiązać połączenia");
+            }
+
+        }
         public byte[] CaptureMyScreen()
         {
             Bitmap bitmap;
             MemoryStream ms = new MemoryStream();
             bitmap = new Bitmap((int)SystemParameters.PrimaryScreenWidth, (int)SystemParameters.PrimaryScreenHeight, System.Drawing.Imaging.PixelFormat.Format32bppArgb);
-           
+
             using (Graphics g = Graphics.FromImage(bitmap))
             {
                 g.CopyFromScreen(0, 0, 0, 0, bitmap.Size);
