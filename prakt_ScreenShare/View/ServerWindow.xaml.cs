@@ -48,7 +48,7 @@ namespace prakt_ScreenShare.View
                 }
                 else
                 {
-                    start_btn.Content = "Stop";
+                    start_btn.Content = "Zamknij";
                     isdoing = true;
                     port = int.Parse(Port.Text);
                     Port.IsEnabled = false;
@@ -60,11 +60,14 @@ namespace prakt_ScreenShare.View
             }
             else
             {
-                start_btn.Content = "Start";
                 isdoing = false;
-                Port.IsEnabled = true;
+                Environment.Exit(0);
             }
-
+        }
+        protected override void OnClosed(EventArgs e)
+        {
+            base.OnClosed(e);
+            Environment.Exit(0);
         }
         void StartServer()
         {

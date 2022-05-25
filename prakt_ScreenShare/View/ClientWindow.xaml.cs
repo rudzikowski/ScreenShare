@@ -130,18 +130,6 @@ namespace prakt_ScreenShare.View
             byte[] bitmapData = ms.ToArray();
             return bitmapData;
         }
-        private static ImageCodecInfo GetEncoderInfo(String mimeType)
-        {
-            int j;
-            ImageCodecInfo[] encoders;
-            encoders = ImageCodecInfo.GetImageEncoders();
-            for (j = 0; j < encoders.Length; ++j)
-            {
-                if (encoders[j].MimeType == mimeType)
-                    return encoders[j];
-            }
-            return null;
-        }
         private MemoryStream GetCompressedBitmap(Bitmap bmp, long quality)
         {
             using (var mss = new MemoryStream())
