@@ -42,5 +42,10 @@ namespace prakt_ScreenShare.View
             UsersWindow userwindow = new UsersWindow();
             userwindow.ShowDialog();
         }
+
+        private void Info_button_click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("ScreenShare \nAutor: Artur Rudzik\nWersja: 1.0", "Informacje o programie",MessageBoxButton.OK,MessageBoxImage.Information);
+        }
     }
 }

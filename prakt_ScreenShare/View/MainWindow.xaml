@@ -11,7 +11,9 @@
         <Border BorderBrush="Black" BorderThickness="1" CornerRadius="10" Width="270" Margin="0,5,0,0" Background="White">
             <StackPanel>
                 <Button Content="⚙" Width="20" Click="Button_Click_2" Margin="10,10,0,0" HorizontalAlignment="Left"/>
+                
                 <Label Content="Wybierz rodzaj klienta" HorizontalAlignment="Center" Margin="0,-23,0,0" RenderTransformOrigin="0.502,-0.027" Height="35" Width="128"/>
+                <Button Content="🛈" FontSize="20" Padding="0,-5,0,0" Width="20" Click="Info_button_click" Margin="10,-43,10,0" HorizontalAlignment="Right" Height="20"/>
                 <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="0,0,0,5">
                     <Button Content="Serwer" Margin="0,0,20,0" Width="100" Height="40" RenderTransformOrigin="0.235,0.466" Click="Button_Click" />
                     <Button Content="Klient" Width="100" Height="40" Click="Button_Click_1"/>
